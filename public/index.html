@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Menu Platform</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f5f7fb;
+        color: #1f2937;
+      }
+      .container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 1rem;
+      }
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+      }
+      .restaurant {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      a.button {
+        text-decoration: none;
+        background: #2563eb;
+        color: white;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+      }
+      code {
+        background: #eef2ff;
+        padding: 0.15rem 0.3rem;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>Restaurant Menu Software</h1>
+        <p>
+          Customers can access menus through a QR/barcode scan (table-specific link) or order directly via
+          WhatsApp from each menu item.
+        </p>
+      </div>
+      <div class="card">
+        <h2>Available restaurants</h2>
+        <div id="restaurants">Loading restaurants...</div>
+      </div>
+    </div>
+
+    <script>
+      async function loadRestaurants() {
+        const root = document.getElementById('restaurants');
+        const response = await fetch('/api/restaurants');
+        const restaurants = await response.json();
+
+        if (!restaurants.length) {
+          root.textContent = 'No restaurants configured yet.';
+          return;
+        }
+
+        root.innerHTML = restaurants
+          .map(
+            (restaurant) => `
+            <div class="restaurant card">
+              <div>
+                <strong>${restaurant.name}</strong><br>
+                <small>Slug: <code>${restaurant.slug}</code></small><br>
+                <small>QR for table 1: <code>/qr/${restaurant.slug}/1</code></small>
+              </div>
+              <a class="button" href="/menu/${restaurant.slug}?table=1">Open menu</a>
+            </div>
+          `
+          )
+          .join('');
+      }
+
+      loadRestaurants().catch((error) => {
+        document.getElementById('restaurants').textContent = `Failed to load: ${error.message}`;
+      });
+    </script>
+  </body>
+</html>
