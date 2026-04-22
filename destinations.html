@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Trip | Destinations</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+    }
+
+    header {
+      background: #1d4ed8;
+      color: white;
+      padding: 26px 18px;
+      text-align: center;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: #dbeafe;
+      margin: 0 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .grid {
+      width: min(1050px, 92%);
+      margin: 28px auto;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.08);
+    }
+
+    .card h3 { margin-top: 0; color: #1e40af; }
+    .badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #075985;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Top Destinations</h1>
+    <p>Explore popular places for your next College Trip adventure.</p>
+    <nav>
+      <a href="login.html">Login</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="vendors.html">Vendors</a>
+      <a href="opportunity.html">Opportunity</a>
+    </nav>
+  </header>
+
+  <section class="grid">
+    <article class="card">
+      <span class="badge">Cultural</span>
+      <h3>Washington, D.C.</h3>
+      <p>Visit museums, monuments, and policy institutions with student-focused tours.</p>
+    </article>
+
+    <article class="card">
+      <span class="badge">Nature</span>
+      <h3>Colorado Rockies</h3>
+      <p>Ideal for leadership camps, trekking, and environmental science workshops.</p>
+    </article>
+
+    <article class="card">
+      <span class="badge">International</span>
+      <h3>Toronto, Canada</h3>
+      <p>Experience global city life with college exchange events and urban discovery.</p>
+    </article>
+
+    <article class="card">
+      <span class="badge">Tech</span>
+      <h3>San Francisco, CA</h3>
+      <p>Tour innovation hubs and connect with startup communities and alumni networks.</p>
+    </article>
+  </section>
+</body>
+</html>
