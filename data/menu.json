@@ -1,0 +1,69 @@
+{
+  "restaurants": [
+    {
+      "slug": "sunset-bistro",
+      "name": "Sunset Bistro",
+      "whatsapp": "15551234567",
+      "currency": "USD",
+      "categories": [
+        {
+          "name": "Starters",
+          "items": [
+            {
+              "id": "st-1",
+              "name": "Garlic Bread",
+              "description": "Toasted sourdough, roasted garlic butter, parmesan.",
+              "price": 6.5,
+              "available": true
+            },
+            {
+              "id": "st-2",
+              "name": "Crispy Calamari",
+              "description": "Lemon aioli and chili flakes.",
+              "price": 10.0,
+              "available": true
+            }
+          ]
+        },
+        {
+          "name": "Mains",
+          "items": [
+            {
+              "id": "mn-1",
+              "name": "Margherita Pizza",
+              "description": "San Marzano tomatoes, buffalo mozzarella, basil.",
+              "price": 13.0,
+              "available": true
+            },
+            {
+              "id": "mn-2",
+              "name": "Grilled Salmon",
+              "description": "Citrus glaze with seasonal vegetables.",
+              "price": 19.5,
+              "available": true
+            }
+          ]
+        },
+        {
+          "name": "Drinks",
+          "items": [
+            {
+              "id": "dr-1",
+              "name": "House Lemonade",
+              "description": "Fresh lemons and mint.",
+              "price": 4.0,
+              "available": true
+            },
+            {
+              "id": "dr-2",
+              "name": "Sparkling Water",
+              "description": "Chilled 330ml bottle.",
+              "price": 3.0,
+              "available": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Menu</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f8fafc;
+        color: #111827;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 1.2rem;
+      }
+      .header,
+      .category,
+      .item {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      }
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .actions {
+        margin-top: 0.8rem;
+      }
+      button {
+        border: 0;
+        background: #16a34a;
+        color: white;
+        border-radius: 8px;
+        padding: 0.55rem 0.9rem;
+        cursor: pointer;
+      }
+      .meta {
+        color: #6b7280;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="app">Loading menu...</div>
+
+    <script>
+      function formatMoney(value, currency) {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency
+        }).format(value);
+      }
+
+      function whatsappUrl(phone, text) {
+        return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+      }
+
+      async function loadMenu() {
+        const app = document.getElementById('app');
+        const [, , slug] = location.pathname.split('/');
+        const params = new URLSearchParams(location.search);
+        const table = params.get('table') || 'N/A';
+
+        const response = await fetch(`/api/menu/${slug}`);
+        if (!response.ok) {
+          app.textContent = 'Menu not found.';
+          return;
+        }
+
+        const restaurant = await response.json();
+
+        const categoriesHtml = restaurant.categories
+          .map(
+            (category) => `
+            <div class="category">
+              <h2>${category.name}</h2>
+              ${category.items
+                .filter((item) => item.available)
+                .map((item) => {
+                  const text = `Hello ${restaurant.name}, I would like to order: ${item.name} (Table ${table}).`;
+                  return `
+                    <div class="item">
+                      <div class="item-header">
+                        <strong>${item.name}</strong>
+                        <strong>${formatMoney(item.price, restaurant.currency)}</strong>
+                      </div>
+                      <p>${item.description}</p>
+                      <div class="actions">
+                        <a href="${whatsappUrl(restaurant.whatsapp, text)}" target="_blank" rel="noreferrer">
+                          <button>Order on WhatsApp</button>
+                        </a>
+                      </div>
+                    </div>
+                  `;
+                })
+                .join('')}
+            </div>
+          `
+          )
+          .join('');
+
+        app.innerHTML = `
+          <div class="header">
+            <h1>${restaurant.name}</h1>
+            <p class="meta">Table: ${table} · Ordering via WhatsApp: +${restaurant.whatsapp}</p>
+          </div>
+          ${categoriesHtml}
+        `;
+      }
+
+      loadMenu().catch((error) => {
+        document.getElementById('app').textContent = `Error loading menu: ${error.message}`;
+      });
+    </script>
+  </body>
+</html>
